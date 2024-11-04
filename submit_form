@@ -1,0 +1,39 @@
+<?php
+// Database credentials
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "landing_page";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Get form data
+$name = $_POST['name'];
+$email = $_POST['email'];
+$message = $_POST['message'];
+
+// Capture additional user information
+$ip_address = $_SERVER['REMOTE_ADDR'];
+$user_agent = $_SERVER['HTTP_USER_AGENT'];
+
+// Prepare and bind
+$stmt = $conn->prepare("INSERT INTO contacts (name, email, message, ip_address, user_agent) VALUES (?, ?, ?, ?, ?)");
+$stmt->bind_param("sssss", $name, $email, $message, $ip_address, $user_agent);
+
+// Execute and check
+if ($stmt->execute()) {
+    echo "Thank you for contacting us!";
+} else {
+    echo "Error: " . $stmt->error;
+}
+
+// Close connection
+$stmt->close();
+$conn->close();
+?>
