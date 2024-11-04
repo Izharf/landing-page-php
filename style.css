@@ -1,0 +1,58 @@
+/* Basic resets */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1em;
+    text-align: center;
+}
+
+/* Hero Section */
+.hero {
+    display: flex;
+    align-items: center;
+    padding: 2em;
+}
+
+.hero-left img {
+    width: 100%;
+    max-width: 400px;
+}
+
+.hero-right {
+    margin-left: 2em;
+}
+
+.hero-right form {
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-right input, .hero-right textarea {
+    margin-bottom: 1em;
+    padding: 0.5em;
+    font-size: 1em;
+}
+
+.hero-right button {
+    padding: 0.5em;
+    font-size: 1em;
+    cursor: pointer;
+    background-color: #333;
+    color: #fff;
+    border: none;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1em;
+    margin-top: 2em;
+}
