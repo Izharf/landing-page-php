@@ -1,6 +1,9 @@
 *Landing Page Project:
 This is a landing page project built with HTML, CSS, JavaScript, PHP, and MySQL. It includes a header, footer, hero section, contact form, and saves form data to a database.
 
+https://github.com/Izharf/landing-page-php.git
+
+
 *Features:
 Contact Form: Users can fill out a contact form with their name, email, reason for contact, preferred contact method, and message.
 Database Storage: Form data is saved to a MySQL database.
