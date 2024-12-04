@@ -1,0 +1,16 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const inputField = document.querySelector('.typing-placeholder');
+    const placeholderText = "9876543210"; // Mobile number to display as placeholder
+    let index = 0;
+
+    function typePlaceholder() {
+        if (index <= placeholderText.length) {
+            inputField.placeholder = placeholderText.substring(0, index);
+            index++;
+        } else {
+            index = 0; // Restart the typing loop
+        }
+    }
+
+    setInterval(typePlaceholder, 200); // Adjust speed (200ms interval)
+});
