@@ -1,0 +1,47 @@
+testemonial sliding up
+
+/* Section container setup */
+selector {
+    position: relative;
+    overflow: hidden; /* Hides content outside the section */
+    height: 80vh; /* Limits section height to 80vh */
+}
+
+/* Force the carousel to slide upward vertically */
+selector .swiper-wrapper {
+    display: flex;
+    flex-direction: column; /* Stack slides vertically */
+    animation: verticalSlide 10s infinite linear; /* Continuous upward animation */
+}
+
+/* Define the vertical sliding animation */
+@keyframes verticalSlide {
+    0% {
+        transform: translateY(0); /* Start position */
+    }
+    100% {
+        transform: translateY(-100%); /* Slide upward completely */
+    }
+}
+
+/* Add blur effect starting from the bottom */
+selector::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30%; /* The blur starts at the bottom 30% of the section */
+    background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)); /* Fade effect */
+    backdrop-filter: blur(10px); /* Adds blur effect */
+    pointer-events: none; /* Ensures no interaction */
+    z-index: 2; /* Sits on top of content */
+}
+
+/* Keep content above the blur */
+selector .elementor-testimonial__content,
+selector .elementor-testimonial__image,
+selector .elementor-testimonial__name {
+    position: relative;
+    z-index: 3; /* Ensures content stays above the blur effect */
+}
