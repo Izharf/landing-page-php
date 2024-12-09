@@ -1,0 +1,40 @@
+/* Card Container */
+selector {
+    position: relative;
+    overflow: hidden; /* Prevents overflow from pseudo-element */
+}
+
+/* Pseudo-element for Bottom-to-Top Effect */
+selector::after {
+    content: "";
+    position: absolute;
+    bottom: 0; /* Anchor to the bottom */
+    left: 0;
+    width: 100%;
+    height: 0; /* Start with no height */
+    background-color: #635bff; /* Background color on hover */
+    background-image: url('your-hover-image-url.jpg'); /* Hover image */
+    background-size: cover;
+    background-position: center;
+    transition: height 0.5s ease-in-out; /* Smooth upward animation */
+    z-index: 1; /* Sits behind the content */
+}
+
+/* On Hover: Expand from Bottom to Top */
+selector:hover::after {
+    height: 100%; /* Grows upward to cover the card */
+}
+
+/* Content Above the Overlay */
+selector > * {
+    position: relative;
+    z-index: 2; /* Keeps text and content above the background */
+    transition: color 0.3s ease-in-out; /* Smooth color change */
+}
+
+/* Change Text Color on Hover */
+selector:hover .elementor-heading-title,
+selector:hover p,
+selector:hover a {
+    color: #FFFFFF !important; /* White text color */
+}
