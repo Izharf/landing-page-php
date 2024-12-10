@@ -1,0 +1,25 @@
+woocommerece.php
+
+<?php
+/* Template Name: WooCommerce */
+get_header(); ?>
+
+<div id="primary" class="content-area">
+    <main id="main" class="site-main">
+        <?php woocommerce_content(); ?>
+    </main>
+</div>
+
+<?php get_footer(); ?>
+
+
+
+
+
+functions.php
+
+
+function mytheme_add_woocommerce_support() {
+    add_theme_support( 'woocommerce' );
+}
+add_action( 'after_setup_theme', 'mytheme_add_woocommerce_support' );
