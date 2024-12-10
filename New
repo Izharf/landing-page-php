@@ -1,0 +1,34 @@
+/* Parent container for the Elementor image */
+.elementor-image {
+    position: relative; /* Establish position context */
+    overflow: hidden; /* Ensures no overflow */
+}
+
+/* Add a pseudo-element for the background image */
+.elementor-image::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('your-hover-background-image-url.jpg'); /* Replace with your background image */
+    background-size: cover;
+    background-position: center;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.5s ease-in-out; /* Smooth fade-in effect */
+    z-index: 1; /* Sit above the original image */
+}
+
+/* Show background image on hover and hide the original image */
+.elementor-image:hover::after {
+    opacity: 1; /* Show the pseudo-element with background image */
+}
+
+.elementor-image img {
+    transition: opacity 0.5s ease-in-out; /* Smooth fade-out effect */
+}
+
+.elementor-image:hover img {
+    opacity: 0; /* Hide the original image on hover */
+}
