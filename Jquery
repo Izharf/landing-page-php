@@ -1,0 +1,33 @@
+/*** JS Code ***/
+jQuery(document).ready(function($) {
+
+    // Add Swiper classes
+    jQuery(".post_slide .elementor-widget-container").addClass("swiper-container");
+    jQuery(".post_slide .elementor-posts-container").addClass("swiper-wrapper");
+    jQuery(".post_slide .elementor-post").addClass("swiper-slide");
+
+    // Append Swiper pagination and navigation buttons
+    jQuery('.swiper-container').append(`
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    `);
+
+    // Initialize Swiper
+    var swiper = new Swiper('.swiper-container', {
+        spaceBetween: 30,
+        slidesPerView: 3,
+        autoplay: true,
+        breakpoints: {
+            640: {
+                slidesPerView: 1,
+                spaceBetween: 20,
+            },
+            768: {
+                slidesPerView: 1,
+                spaceBetween: 40,
+            }
+        }
+    });
+
+});
