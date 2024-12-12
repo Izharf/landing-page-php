@@ -1,0 +1,137 @@
+<div class="loan-calculator">
+    <div class="left-section">
+        <div class="input-group">
+            <label for="loanAmount">Loan amount: ₹<span id="loanAmountDisplay">145000</span></label>
+            <input type="range" id="loanAmount" min="10000" max="1000000" step="1000" value="145000" oninput="updateLoanAmount()">
+            <div class="range-value">₹<span id="loanAmountValue">145000</span></div>
+        </div>
+        <div class="input-group">
+            <label for="interestRate">Interest rate: <span id="interestRateDisplay">14</span>%</label>
+            <input type="range" id="interestRate" min="1" max="20" step="0.1" value="14" oninput="updateInterestRate()">
+            <div class="range-value"><span id="interestRateValue">14</span>%</div>
+        </div>
+        <div class="input-group">
+            <label for="emiPeriod">Select EMI option: <span id="emiPeriodDisplay">12</span> Months</label>
+            <input type="range" id="emiPeriod" min="3" max="36" step="3" value="12" oninput="updateEmiPeriod()">
+            <div class="range-value"><span id="emiPeriodValue">12</span> Months</div>
+        </div>
+    </div>
+    <div class="right-section">
+        <div class="output-group">
+            <label>Your monthly installment: <span id="monthlyInstallment">₹0.00</span></label>
+        </div>
+        <div class="output-group">
+            <label>Principal amount: <span id="principalAmount">₹0.00</span></label>
+        </div>
+        <div class="output-group">
+            <label>Total interest: <span id="totalInterest">₹0.00</span></label>
+        </div>
+        <div class="output-group">
+            <label>Total amount: <span id="totalAmount">₹0.00</span></label>
+        </div>
+        <button onclick="applyForLoan()">Apply for loan</button>
+    </div>
+</div>
+
+<style>
+.loan-calculator {
+    display: flex;
+    justify-content: space-between;
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+}
+
+.left-section, .right-section {
+    width: 48%;
+}
+
+.input-group, .output-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="range"], select {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.range-value {
+    text-align: right;
+    margin-top: 5px;
+    font-size: 14px;
+    color: #555;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+</style>
+
+<script>
+function updateLoanAmount() {
+    var loanAmount = document.getElementById("loanAmount").value;
+    document.getElementById("loanAmountDisplay").innerText = loanAmount;
+    document.getElementById("loanAmountValue").innerText = loanAmount;
+    calculateEMI();
+}
+
+function updateInterestRate() {
+    var interestRate = document.getElementById("interestRate").value;
+    document.getElementById("interestRateDisplay").innerText = interestRate;
+    document.getElementById("interestRateValue").innerText = interestRate;
+    calculateEMI();
+}
+
+function updateEmiPeriod() {
+    var emiPeriod = document.getElementById("emiPeriod").value;
+    document.getElementById("emiPeriodDisplay").innerText = emiPeriod;
+    document.getElementById("emiPeriodValue").innerText = emiPeriod;
+    calculateEMI();
+}
+
+function calculateEMI() {
+    var P = document.getElementById("loanAmount").value;
+    var annualRate = document.getElementById("interestRate").value;
+    var n = document.getElementById("emiPeriod").value;
+    var r = (annualRate / 12) / 100;
+
+    var EMI = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+    var totalAmount = EMI * n;
+    var totalInterest = totalAmount - P;
+
+    document.getElementById("monthlyInstallment").innerText = "₹" + EMI.toFixed(2);
+    document.getElementById("principalAmount").innerText = "₹" + P;
+    document.getElementById("totalInterest").innerText = "₹" + totalInterest.toFixed(2);
+    document.getElementById("totalAmount").innerText = "₹" + totalAmount.toFixed(2);
+}
+
+function applyForLoan() {
+    alert("Loan application submitted!");
+}
+
+// Initialize the display values
+updateLoanAmount();
+updateInterestRate();
+updateEmiPeriod();
+</script>
