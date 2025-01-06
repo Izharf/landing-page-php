@@ -1,20 +1,90 @@
-.elementor-post__title {
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* Adjust number of lines */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: normal;
+.swipe-container {
+  position: relative;
+  overflow: hidden;
+  height: 100vh; /* Full viewport height */
+  width: 100%;
+}
+
+.inner-section {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  transition: transform 1s ease-in-out; /* Smooth swipe animation */
+}
+
+.inner-section.section-1 {
+  background-color: #ff5733; /* Example color for Section 1 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: white;
+}
+
+.inner-section.section-2 {
+  background-color: #33ff57; /* Example color for Section 2 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: white;
+}
+
+.inner-section.section-3 {
+  background-color: #3357ff; /* Example color for Section 3 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: white;
 }
 
 
-main webinar page 
 
-.elementor-post__title {
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* Adjust number of lines */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: normal;
-}
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const swipeContainer = document.querySelector('.swipe-container');
+    const sections = swipeContainer.querySelectorAll('.inner-section');
+    const totalSections = sections.length;
+    const intervalTime = 5000; // 5 seconds interval for each slide
+    let currentIndex = 0; // Tracks the current topmost slide
+
+    const swipeUp = () => {
+        // Move the current slide up, set to the bottom
+        const currentSlide = sections[currentIndex];
+        currentSlide.style.transition = "transform 1s ease-in-out"; // Smooth transition for sliding
+        currentSlide.style.transform = `translateY(-100%)`; // Move the current slide up
+
+        // Set the next slide to come from the bottom
+        const nextIndex = (currentIndex + 1) % totalSections;
+        const nextSlide = sections[nextIndex];
+        nextSlide.style.transition = "none"; // Disable transition for the next slide repositioning
+        nextSlide.style.transform = `translateY(100%)`; // Move the next slide from below
+
+        // Re-enable transition for the next slide after a slight delay to allow repositioning
+        setTimeout(() => {
+            nextSlide.style.transition = "transform 1s ease-in-out"; // Enable transition again
+            nextSlide.style.transform = `translateY(0)`; // Move it into place
+        }, 100);
+
+        // Update the current index to the next slide
+        currentIndex = nextIndex;
+    };
+
+    // Initialize all slides in the correct position
+    sections.forEach((section, index) => {
+        if (index !== 0) {
+            section.style.transform = `translateY(100%)`; // Set all but the first slide out of view
+        }
+    });
+
+    // Start the automatic swipe
+    setInterval(swipeUp, intervalTime);
+});
+
+</script>
