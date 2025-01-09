@@ -1,3 +1,246 @@
+
+<div class="loan-calculator-widget">
+  <div class="calculator-left">
+    <div class="slider-container">
+      <label for="loan-amount-slider">Loan amount</label>
+      <input
+        type="range"
+        id="loan-amount-slider"
+        min="8000"
+        max="500000"
+        step="1000"
+        value="145000"
+      />
+      <div class="slider-values">
+        <span>8k</span>
+        <span>₹<span id="loan-amount-value">145,000</span></span>
+        <span>5L</span>
+      </div>
+    </div>
+    <div class="slider-container">
+      <label for="interest-rate-slider">Interest rate</label>
+      <input
+        type="range"
+        id="interest-rate-slider"
+        min="12"
+        max="30"
+        step="0.1"
+        value="14"
+      />
+      <div class="slider-values">
+        <span>12%</span>
+        <span><span id="interest-rate-value">14%</span></span>
+        <span>30%</span>
+      </div>
+    </div>
+    <div class="slider-container">
+      <label for="emi-slider">Select EMI option</label>
+      <input
+        type="range"
+        id="emi-slider"
+        min="3"
+        max="36"
+        step="1"
+        value="12"
+      />
+      <div class="slider-values">
+        <span>3 Months</span>
+        <span><span id="emi-value">12 Months</span></span>
+        <span>36 Months</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="calculator-right">
+    <div class="result-summary">
+      <h4>Your monthly instalment:</h4>
+      <h2>₹<span id="monthly-instalment">13,019</span></h2>
+      <ul>
+        <li>
+          Total interest: ₹<span id="total-interest">11,228</span>
+        </li>
+        <li>
+          Principal amount: ₹<span id="principal-amount">145,000</span>
+        </li>
+        <li>
+          Total amount: ₹<span id="total-amount">156,228</span>
+        </li>
+      </ul>
+    </div>
+    <button class="apply-loan-btn">Apply for loan</button>
+  </div>
+</div>
+
+<style>
+.loan-calculator-widget {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.calculator-left,
+.calculator-right {
+  flex: 1;
+  margin: 10px;
+}
+
+.slider-container {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+input[type='range'] {
+  width: 100%;
+}
+
+.slider-values {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.result-summary h4 {
+  font-size: 16px;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.result-summary h2 {
+  font-size: 28px;
+  color: #3cba54;
+  margin: 0 0 20px;
+}
+
+.result-summary ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.result-summary ul li {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.apply-loan-btn {
+  background-color: #0057ff;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+
+.apply-loan-btn:hover {
+  background-color: #0046cc;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const loanSlider = document.getElementById('loan-amount-slider');
+  const rateSlider = document.getElementById('interest-rate-slider');
+  const emiSlider = document.getElementById('emi-slider');
+
+  const loanAmountDisplay = document.getElementById('loan-amount-value');
+  const interestRateDisplay = document.getElementById('interest-rate-value');
+  const emiDisplay = document.getElementById('emi-value');
+
+  const monthlyInstalmentDisplay = document.getElementById('monthly-instalment');
+  const totalInterestDisplay = document.getElementById('total-interest');
+  const principalAmountDisplay = document.getElementById('principal-amount');
+  const totalAmountDisplay = document.getElementById('total-amount');
+
+  function calculateEMI() {
+    const loanAmount = parseInt(loanSlider.value);
+    const annualRate = parseFloat(rateSlider.value) / 100;
+    const emiMonths = parseInt(emiSlider.value);
+
+    const monthlyRate = annualRate / 12;
+    const emi =
+      (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, emiMonths)) /
+      (Math.pow(1 + monthlyRate, emiMonths) - 1);
+
+    const totalInterest = emi * emiMonths - loanAmount;
+    const totalAmount = loanAmount + totalInterest;
+
+    monthlyInstalmentDisplay.textContent = emi.toFixed(0);
+    totalInterestDisplay.textContent = totalInterest.toFixed(0);
+    principalAmountDisplay.textContent = loanAmount.toLocaleString();
+    totalAmountDisplay.textContent = totalAmount.toFixed(0);
+  }
+
+  loanSlider.addEventListener('input', () => {
+    loanAmountDisplay.textContent = parseInt(loanSlider.value).toLocaleString();
+    calculateEMI();
+  });
+
+  rateSlider.addEventListener('input', () => {
+    interestRateDisplay.textContent = `${parseFloat(rateSlider.value).toFixed(
+      1
+    )}%`;
+    calculateEMI();
+  });
+
+  emiSlider.addEventListener('input', () => {
+    emiDisplay.textContent = `${parseInt(emiSlider.value)} Months`;
+    calculateEMI();
+  });
+
+  calculateEMI(); // Initial calculation
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="loan-calculator">
     <div class="left-section">
         <div class="input-group">
